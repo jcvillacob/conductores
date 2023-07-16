@@ -1,9 +1,9 @@
 <div class="container">
     <div class="container__nombre">Coordinadora de Tanques</div>
     <div class="container__forms">
-        <form (submit)="submitForm()" class="forms__form" >
+        <form (submit)="submitForm($event)" class="forms__form" >
             <label for="" class="form__label">Número de identificación</label>
-            <input type="number" name="" id="" class="form__input">
+            <input type="number" name="cedula" id="" class="form__input" [(ngModel)]="cedula" required>
             <button type="submit" class="form__button">ACCEDER</button>
         </form>
     </div>

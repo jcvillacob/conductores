@@ -1,0 +1,18 @@
+.container {
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container__coordinadora, .container__tanques {
+    font-size: 18px;
+}
+
+.container__coordinadora {
+    font-weight: 400;
+    color: rgb(51, 49, 49);
+}
