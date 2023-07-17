@@ -7,10 +7,10 @@ import { Component } from '@angular/core';
 })
 export class BottombarComponent {
   routes: any[] = [
-    {name: 'Ayuda', icon: 'fa-solid fa-circle-info', class: '', routerLink: ''},
-    {name: 'Anticipos', icon: 'fa-solid fa-dollar-sign', class: '', routerLink: ''},
-    {name: '', icon: 'fa-solid fa-truck', class: 'center', routerLink: ''},
-    {name: 'Gastos', icon: 'fa-solid fa-money-check-dollar', class: '', routerLink: ''},
-    {name: 'Perfil', icon: 'fa-solid fa-user', class: '', routerLink: ''},
+    {name: 'Ayuda', icon: 'fa-solid fa-circle-info', class: '', routerLink: 'help'},
+    {name: 'Anticipos', icon: 'fa-solid fa-dollar-sign', class: '', routerLink: 'anticipos'},
+    {name: '', icon: 'fa-solid fa-truck', class: 'center', routerLink: 'home'},
+    {name: 'Gastos', icon: 'fa-solid fa-money-check-dollar', class: '', routerLink: 'gastos'},
+    {name: 'Perfil', icon: 'fa-solid fa-user', class: '', routerLink: 'profile'},
   ]
 }

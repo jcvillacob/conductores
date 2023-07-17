@@ -6,6 +6,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: transparent;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    transition: all 0.7s;
+}
+
+.container.scrolled {
+    background-color: #ffffffef;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.181);
 }
 
 .container__coordinadora, .container__tanques {

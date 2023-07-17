@@ -1,0 +1,24 @@
+<app-loader *ngIf="loader"></app-loader>
+<div class="container" *ngIf="!loader">
+    <h3 class="container__title">Liquidaciones de {{mes}}</h3>
+    <div class="container__gastos">
+        <div class="gastos__gasto" *ngFor="let gasto of gastosM; index as i">
+            <div class="gasto__icon"><i class="fa-solid fa-scale-balanced"></i></div>
+            <div class="gasto__data">
+                <div class="data__manifiesto"> <strong>Manifiesto: </strong> {{ gasto.manifiesto }} </div>
+                <div class="data__manifiesto"> <strong>Ruta: </strong> {{ gasto.ruta }} </div>
+                <div class="data__manifiesto"> <strong>Placa: </strong> {{ gasto.placa }} </div>
+                <div class="data__manifiesto"> <strong>Valor Anticipo: </strong> ${{ gasto.vrAnticipo | number:'1.0-0'  }} </div>
+                <div class="data__manifiesto"> <strong>Valor Gasto: </strong> ${{ gasto.vrGasto | number:'1.0-0'  }} </div>
+                <div class="data__manifiesto"> <strong>Valor Bonificación: </strong> ${{ gasto.vrBonificacion | number:'1.0-0'  }} </div>
+                <div class="data__manifiesto"> <strong>Valor Alcance: </strong> ${{ gasto.vrAlcance | number:'1.0-0'  }} </div>
+                <div class="data__manifiesto"> <strong>Bonificación (40%): </strong> ${{ gasto.bonI_40 | number:'1.0-0'  }} </div>
+                <div class="data__manifiesto"> <strong>Renta (60%): </strong> ${{ gasto.rentA_60 | number:'1.0-0'  }} </div>
+                <div class="data__manifiesto"> <strong>Fecha Manifiesto: </strong> {{ gasto.fechaManifiesto | date:'dd-MMMM-yyyy' }} </div>
+                <div class="data__manifiesto"> <strong>Fecha Liquidación: </strong> {{ gasto.fechaLiquidacion | date:'dd-MMMM-yyyy' }} </div>
+        </div>
+    </div>
+    <div class="container__pdf">
+        <i class="fa-regular fa-file-lines"></i>
+    </div>
+</div>

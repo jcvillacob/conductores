@@ -10,6 +10,7 @@ export class LoginService {
 
   login(cedula: number) {
     this.cedula = cedula;
+    console.log(this.cedula);
   }
 
   getCedula (){
