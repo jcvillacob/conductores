@@ -18,7 +18,7 @@
                 <div class="data__manifiesto"> <strong>Fecha Liquidación: </strong> {{ gasto.fechaLiquidacion | date:'dd-MMMM-yyyy' }} </div>
         </div>
     </div>
-    <div class="container__pdf">
+    <div class="container__pdf" (click)="exportPDF()">
         <i class="fa-regular fa-file-lines"></i>
     </div>
 </div>
