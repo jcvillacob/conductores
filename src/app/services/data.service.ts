@@ -15,14 +15,14 @@ export class DataService {
   constructor(private http: HttpClient, private loginService: LoginService) {
     this.cedula = this.loginService.getCedula();
   }
-
+  
   getAnticiposGV(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/api/AnticiposGV/10181377?token=${this.token}`);
+    this.cedula = this.loginService.getCedula();
+    return this.http.get<any[]>(`${this.apiUrl}/api/AnticiposGV/${this.cedula}?token=${this.token}`);
   }
-
+  
   getGastos(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/api/Legalizaciones/Conductor?token=${this.token}&Conductor=10181377`);
+    this.cedula = this.loginService.getCedula();
+    return this.http.get<any[]>(`${this.apiUrl}/api/Legalizaciones/Conductor?token=${this.token}&Conductor=${this.cedula}`);
   }
-
-
 }

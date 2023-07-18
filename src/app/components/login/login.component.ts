@@ -10,6 +10,7 @@ import { Notyf } from 'notyf';
 })
 export class LoginComponent {
   cedula!: number;
+  datosPersonales: any = {};
   private notyf: Notyf;
 
   constructor(private loginService: LoginService, private router: Router) {
@@ -18,8 +19,8 @@ export class LoginComponent {
         x: 'center',
         y: 'top',
       },
-      duration: 3000, // duración de la notificación en milisegundos (opcional)
-      ripple: false,  // si quieres el efecto ripple (opcional)
+      duration: 3000,
+      ripple: false,
     });
   }
 
@@ -28,8 +29,14 @@ export class LoginComponent {
     if (!this.cedula) {
       this.notyf.error('Ingresa una Cédula');
     } else {
-      this.loginService.login(this.cedula);
-      this.router.navigate(['/home']);
+      this.loginService.login(this.cedula).subscribe(data => {
+        this.datosPersonales = data;
+        this.loginService.setDatos(this.datosPersonales);
+        this.router.navigate(['/profile']);
+      }, error => {
+        this.notyf.error('Documento Inválido');
+      })
+      
     }
   }
 }

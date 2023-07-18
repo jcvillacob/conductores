@@ -1,5 +1,5 @@
 <div class="container">
-    <app-topbar></app-topbar>
+    <app-topbar *ngIf="cedula"></app-topbar>
     <router-outlet></router-outlet>
-    <app-bottombar></app-bottombar>
+    <app-bottombar *ngIf="cedula"></app-bottombar>
 </div>

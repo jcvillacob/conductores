@@ -43,6 +43,7 @@
     padding: 10px;
     margin: auto;
     margin-bottom: 15px;
+    font-size: 18px;
 }
 
 .form__input:focus {

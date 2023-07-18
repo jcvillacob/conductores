@@ -18,7 +18,19 @@
                 <div class="data__manifiesto"> <strong>Fecha Liquidación: </strong> {{ gasto.fechaLiquidacion | date:'dd-MMMM-yyyy' }} </div>
         </div>
     </div>
-    <div class="container__pdf" (click)="exportPDF()">
+    <div class="container__pdf" (click)="modal()">
         <i class="fa-regular fa-file-lines"></i>
+    </div>
+
+    <div class="container__modal" [ngClass]="{'-active-modal' : modalB}">
+        <div class="modal__close"  (click)="modal()"><i class="fa-solid fa-xmark"></i></div>
+        <h2 class="modal__title">Descargar Certificado</h2>
+        <select name="month" id="month" class="modal__month" (change)="selectedMonth()" [(ngModel)]="paraPDF">
+            <option value="-1" class="mont__option">Selecciona un Mes</option>
+            <option [value]="mesActual - 1" class="mont__option">{{ mesesEnEspanol[mesActual - 1] }}</option>
+            <option [value]="mesActual - 2" class="mont__option">{{ mesesEnEspanol[mesActual - 2] }}</option>
+            <option [value]="mesActual - 3" class="mont__option">{{ mesesEnEspanol[mesActual - 3] }}</option>
+        </select>
+        <button class="modal__button" (click)="exportPDF()">Descargar</button>
     </div>
 </div>

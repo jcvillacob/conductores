@@ -2,6 +2,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding-top: 90px;
     padding-bottom: 90px;    
 }
@@ -53,6 +54,8 @@
 }
 
 
+
+/* Pdf Button */
 .container__pdf {
     position: fixed;
     bottom: 80px;
@@ -68,4 +71,58 @@
 
 .container__pdf:hover {
     cursor: pointer;
+}
+
+
+/* Modal */
+.container__modal {
+    position: fixed;
+    width: 95%;
+    top: 100%;
+    left: 2.5%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.192);
+    transition: all 0.7s ease-out;
+}
+
+.-active-modal {
+    top: 20%
+}
+
+.modal__close {
+    position: absolute;
+    top: 0%;
+    right: 5%;
+    font-size: 25px;
+    padding: 10px;
+}
+
+.modal__title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.modal__month {
+    width: 80%;
+    display: flex;
+    margin: auto;
+    outline: none;
+    font-size: 18px;
+    padding: 10px;
+    border: 0;
+    border-bottom: 1px solid #f92634;
+}
+
+.modal__button {
+    background-color: #BE0512;
+    color: #fff;
+    padding: 15px 20px;
+    border: 0;
+    border-radius: 15px;
+    font-size: 16px;
 }
