@@ -29,7 +29,6 @@ export class AnticiposComponent implements OnInit {
         setTimeout (() => {
           this.loader = false;
         }, 1000)
-        console.log(this.anticipos);
       })
   }
 
