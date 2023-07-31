@@ -18,6 +18,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { AnticiposComponent } from './components/anticipos/anticipos.component';
 import { GastosComponent } from './components/gastos/gastos.component';
 import { HelpComponent } from './components/help/help.component';
+import { NodatosComponent } from './components/nodatos/nodatos.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HelpComponent } from './components/help/help.component';
     LoaderComponent,
     AnticiposComponent,
     GastosComponent,
-    HelpComponent
+    HelpComponent,
+    NodatosComponent
   ],
   imports: [
     BrowserModule,

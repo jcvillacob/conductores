@@ -34,6 +34,7 @@ export class GastosComponent implements OnInit {
     'noviembre',
     'diciembre',
   ];
+  noEncontrado: boolean = false;
 
   constructor(private dataService: DataService, private loginService: LoginService) {
     const fechaActual = new Date();
@@ -53,6 +54,16 @@ export class GastosComponent implements OnInit {
         return mesGasto === this.mesActual;
       });
       this.loader = false;
+      if(this.gastosM.length == 0) {
+        this.noEncontrado = true;
+      }
+    }, error => {
+      if(this.gastosM.length == 0) {
+        this.noEncontrado = true;
+        setTimeout (() => {
+          this.loader = false;
+        }, 1000)
+      }
     });
   }
 
@@ -77,9 +88,9 @@ export class GastosComponent implements OnInit {
     if (this.paraPDF != -1) {
       const doc = new jsPDF('l');
       // Agregar imagen
-      doc.addImage('../../../assets/PlantillaPDF/superior_logo.png', 'PNG', 239, 0, 60, 30);
-      doc.addImage('../../../assets/PlantillaPDF/inferior_logo.png', 'PNG', 249, 170, 60, 60);
-      doc.addImage('../../../assets/PlantillaPDF/nit.png', 'PNG', 1, 110, 7, 42);
+      doc.addImage('assets/PlantillaPDF/superior_logo.png', 'PNG', 239, 0, 60, 30);
+      doc.addImage('assets/PlantillaPDF/inferior_logo.png', 'PNG', 249, 170, 60, 60);
+      doc.addImage('assets/PlantillaPDF/nit.png', 'PNG', 1, 110, 7, 42);
 
       const formatNumber = (num: number) => {
         return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');

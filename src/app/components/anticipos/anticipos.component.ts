@@ -11,6 +11,7 @@ export class AnticiposComponent implements OnInit {
   anticiposF: any[] = [];
   filtro: string = '';
   loader: boolean = true;
+  noEncontrado: boolean = false;
   c = 0;
 
   constructor (private dataService: DataService) {}
@@ -29,6 +30,13 @@ export class AnticiposComponent implements OnInit {
         setTimeout (() => {
           this.loader = false;
         }, 1000)
+      }, error => {
+        if(this.anticipos.length == 0) {
+          this.noEncontrado = true;
+          setTimeout (() => {
+            this.loader = false;
+          }, 1000)
+        }
       })
   }
 
