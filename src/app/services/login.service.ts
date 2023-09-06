@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { API_CONFIG } from 'src/api.config';
+import { Personales } from '../models/personales';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ import { API_CONFIG } from 'src/api.config';
 export class LoginService {
   private apiUrl = `${API_CONFIG.baseUrl}`;
   private token: string = API_CONFIG.token;
-  private cedula!: number;
-  private datosPersonales: any = {}
+  private cedula!: string;
+  private datosPersonales!: Personales;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -19,8 +20,9 @@ export class LoginService {
     return this.http.get<any>(`${this.apiUrl}/api/Conductores/${cedula}?token=${this.token}`);
   }
 
-  setDatos(datos: any): void {
+  setDatos(datos: Personales): void {
     this.datosPersonales = datos;
+    console.log(datos);
     this.cedula = this.datosPersonales.cedula;
   }
 
@@ -33,7 +35,7 @@ export class LoginService {
   }
 
   deleteCedula () {
-    this.cedula = 0;
+    this.cedula = '';
     this.router.navigate(['/login']);
   }
 }

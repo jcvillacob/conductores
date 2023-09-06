@@ -2,7 +2,7 @@
 <div class="container" *ngIf="!loader">
     <h3 class="container__title">Liquidaciones de {{mes}}</h3>
     <div class="container__gastos">
-        <div class="gastos__gasto" *ngFor="let gasto of gastosM; index as i">
+        <div class="gastos__gasto" *ngFor="let gasto of gastos_mensual; index as i">
             <div class="gasto__icon"><i class="fa-solid fa-scale-balanced"></i></div>
             <div class="gasto__data">
                 <div class="data__manifiesto"> <strong>Manifiesto: </strong> {{ gasto.manifiesto }} </div>
