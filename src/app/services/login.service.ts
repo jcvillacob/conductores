@@ -22,7 +22,6 @@ export class LoginService {
 
   setDatos(datos: Personales): void {
     this.datosPersonales = datos;
-    console.log(datos);
     this.cedula = this.datosPersonales.cedula;
   }
 

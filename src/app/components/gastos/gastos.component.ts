@@ -48,7 +48,6 @@ export class GastosComponent implements OnInit {
     this.datosPersonales = this.loginService.getDatos();
     this.dataService.getGastos().subscribe((data) => {
       this.gastos = data;
-      console.log(data);
       this.gastos_mensual = this.gastos.filter((gasto) => new Date(gasto.fechaLiquidacion).getMonth() === this.mesActual);
       this.loader = false;
       if (this.gastos_mensual.length == 0) {

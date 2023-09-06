@@ -24,7 +24,6 @@ export class DataService {
       /* Para manejar los repetidos */
       .pipe(
         map(data => {
-          console.log(data);
           let c = 0;
           data.map(anticipo => {
             c++;
