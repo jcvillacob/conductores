@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Personales } from 'src/app/models/personales';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  datosPersonales: any = {};
+  datosPersonales!: Personales;
 
   constructor(private loginService: LoginService) {}
 

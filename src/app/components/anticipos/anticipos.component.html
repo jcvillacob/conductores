@@ -1,5 +1,6 @@
 <app-loader *ngIf="loader"></app-loader>
 <div class="container" *ngIf="!loader && !noEncontrado">
+    <!-- Filtro -->
     <div class="container__filtro">
         <select name="filtro" id="filtro" class="filtro__select" [(ngModel)]="filtro" (change)="cambioFiltro(filtro)">
             <option value="" class="select__option">Todos los Estados</option>
@@ -8,8 +9,9 @@
         </select>
     </div>
 
+    <!-- Cards -->
     <div class="container__anticipos">
-        <div class="anticipos__anticipo" *ngFor="let anticipo of anticiposF; index as i">
+        <div class="anticipos__anticipo" *ngFor="let anticipo of anticipos_filtro; index as i">
             <div class="anticipo__icon"><i class="fa-regular fa-credit-card"></i></div>
             <div class="anticipo__data">
                 <div class="data__manifiesto"> <strong>Manifiesto: </strong> {{ anticipo.manifiesto }} </div>

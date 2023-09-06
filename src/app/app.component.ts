@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   title = 'conductores';
-  cedula!: number;
+  cedula!: string;
 
   constructor(private loginService: LoginService, private router: Router) {}
 

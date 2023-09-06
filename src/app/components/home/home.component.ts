@@ -7,7 +7,7 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  cedula!: number;
+  cedula!: string;
 
   constructor(private loginService: LoginService) {}
 

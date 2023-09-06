@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { LoginService } from 'src/app/services/login.service';
+import { Gasto } from 'src/app/models/gasto';
 
 @Component({
   selector: 'app-gastos',
@@ -12,9 +13,9 @@ import { LoginService } from 'src/app/services/login.service';
 export class GastosComponent implements OnInit {
   datosPersonales: any = {};
   loader: boolean = true;
-  gastos: any[] = [];
-  gastosM: any[] = [];
-  gastosP: any[] = [];
+  gastos: Gasto[] = [];
+  gastos_mensual: Gasto[] = [];
+  gastosP: Gasto[] = [];
   mes!: string;
   mesActual!: number;
   anoActual!: number;
@@ -40,27 +41,23 @@ export class GastosComponent implements OnInit {
     const fechaActual = new Date();
     this.mesActual = fechaActual.getMonth();
     this.anoActual = fechaActual.getFullYear();
+    this.mes = this.mesesEnEspanol[this.mesActual];
   }
 
   ngOnInit(): void {
     this.datosPersonales = this.loginService.getDatos();
     this.dataService.getGastos().subscribe((data) => {
-      const nombreMesActual = this.mesesEnEspanol[this.mesActual];
-      this.mes = nombreMesActual;
       this.gastos = data;
-      this.gastosM = this.gastos.filter((gasto) => {
-        const fechaGasto = new Date(gasto.fechaLiquidacion);
-        const mesGasto = fechaGasto.getMonth();
-        return mesGasto === this.mesActual;
-      });
+      console.log(data);
+      this.gastos_mensual = this.gastos.filter((gasto) => new Date(gasto.fechaLiquidacion).getMonth() === this.mesActual);
       this.loader = false;
-      if(this.gastosM.length == 0) {
+      if (this.gastos_mensual.length == 0) {
         this.noEncontrado = true;
       }
     }, error => {
-      if(this.gastosM.length == 0) {
+      if (this.gastos_mensual.length == 0) {
         this.noEncontrado = true;
-        setTimeout (() => {
+        setTimeout(() => {
           this.loader = false;
         }, 1000)
       }
@@ -118,6 +115,7 @@ export class GastosComponent implements OnInit {
       doc.text(textoDividido, 30, 60);
       doc.text("Cordialmente,", 30, 200);
 
+      let subTotales = { vrAnticipo: 0, vrGasto: 0, vrBonificacion: 0, vrAlcance: 0, bonI_40: 0, rentA_60: 0 };
       let data = [];
 
       for (let gasto of this.gastosP) {
@@ -134,7 +132,31 @@ export class GastosComponent implements OnInit {
           formatDate(new Date(gasto.fechaManifiesto)),
           formatDate(new Date(gasto.fechaLiquidacion)),
         ]);
+
+        subTotales.vrAnticipo += gasto.vrAnticipo;
+        subTotales.vrGasto += gasto.vrGasto;
+        subTotales.vrBonificacion += gasto.vrBonificacion;
+        subTotales.vrAlcance += gasto.vrAlcance;
+        subTotales.bonI_40 += gasto.bonI_40;
+        subTotales.rentA_60 += gasto.rentA_60;
       }
+
+      // Añadir fila de subtotales al final
+      data.push([
+        '', '', '', '', '', '', '', '', '', '', ''
+      ]);
+
+      // Añadir fila de subtotales al final
+      data.push([
+        '', '', '',
+        formatNumber(subTotales.vrAnticipo),
+        formatNumber(subTotales.vrGasto),
+        formatNumber(subTotales.vrBonificacion),
+        formatNumber(subTotales.vrAlcance),
+        formatNumber(subTotales.bonI_40),
+        formatNumber(subTotales.rentA_60),
+        '', ''
+      ]);
 
       autoTable(doc, {
         startY: 75,
@@ -160,6 +182,18 @@ export class GastosComponent implements OnInit {
         },
         headStyles: { fillColor: [0, 41, 48], valign: 'middle' },
         theme: 'grid',
+        didDrawCell: (data) => {
+          // Cambia el estilo de la última celda de la primera columna
+          if (data.section === 'body' && data.column.index <= 2 && data.row.index === data.table.body.length - 1) {
+            doc.setFillColor(238, 44, 55); // Color de fondo rojo
+            doc.setTextColor(255, 255, 255); // Color de texto blanco
+            doc.rect(data.cell.x, data.cell.y, data.cell.width, data.cell.height, 'F'); // Dibuja el fondo
+            doc.text('', data.cell.x + data.cell.width / 2, data.cell.y + data.cell.height / 2, { align: 'center', baseline: 'middle' }); // Dibuja el texto centrado
+          }
+          if (data.section === 'body' && data.column.index === 1 && data.row.index === data.table.body.length - 1) {
+            doc.text('Subtotales', data.cell.x + data.cell.width / 2, data.cell.y + data.cell.height / 2, { align: 'center', baseline: 'middle' }); // Dibuja el texto centrado
+          }
+        },
       });
 
       doc.save('resumenLegalizaciones.pdf');

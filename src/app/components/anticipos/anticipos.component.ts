@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Anticipo } from 'src/app/models/anticipo';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -7,8 +8,8 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./anticipos.component.css']
 })
 export class AnticiposComponent implements OnInit {
-  anticipos: any[] = [];
-  anticiposF: any[] = [];
+  anticipos: Anticipo[] = [];
+  anticipos_filtro: Anticipo[] = [];
   filtro: string = '';
   loader: boolean = true;
   noEncontrado: boolean = false;
@@ -18,15 +19,8 @@ export class AnticiposComponent implements OnInit {
 
   ngOnInit(): void {
       this.dataService.getAnticiposGV().subscribe(data => {
-        data.map(anticipo => {
-          this.c++ ;
-          if ((anticipo.detalleAnticipos).length > 1) {
-            const datoNuevo = {manifiesto: anticipo.manifiesto, detalleAnticipos: [anticipo.detalleAnticipos[1]] }
-            data.splice(this.c, 0, datoNuevo);
-          }
-        });
         this.anticipos = data;
-        this.anticiposF = data;
+        this.anticipos_filtro = data;
         setTimeout (() => {
           this.loader = false;
         }, 1000)
@@ -42,11 +36,11 @@ export class AnticiposComponent implements OnInit {
 
   cambioFiltro(filtro: string) {
     if (filtro === "Legalizado") {
-      this.anticiposF = this.anticipos.filter(anticipo => anticipo.detalleAnticipos[0].saldo == 0);
+      this.anticipos_filtro = this.anticipos.filter(anticipo => anticipo.detalleAnticipos[0].saldo == 0);
     } else if (filtro === "Pendiente") {
-      this.anticiposF = this.anticipos.filter(anticipo => anticipo.detalleAnticipos[0].saldo != 0 );
+      this.anticipos_filtro = this.anticipos.filter(anticipo => anticipo.detalleAnticipos[0].saldo != 0 );
     } else {
-      this.anticiposF = this.anticipos;
+      this.anticipos_filtro = this.anticipos;
     }
   }
 }
